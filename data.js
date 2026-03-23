@@ -403,12 +403,12 @@
   // COUNTRIES API
   // ════════════════════════════════════════════════════════════════
 
-  var COUNTRIES_API = "https://restcountries.com/v3.1/all?fields=name,flags,capital,region,cca2";
-  var COUNTRIES_CACHE_KEY = "quizmaster_countries_cache";
+  const COUNTRIES_API = "https://restcountries.com/v3.1/all?fields=name,flags,capital,region,cca2";
+  const COUNTRIES_CACHE_KEY = "quizmaster_countries_cache";
 
   async function fetchCountriesData() {
     try {
-      var cached = sessionStorage.getItem(COUNTRIES_CACHE_KEY);
+      const cached = sessionStorage.getItem(COUNTRIES_CACHE_KEY);
       if (cached) {
         return JSON.parse(cached);
       }
