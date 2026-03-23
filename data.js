@@ -59,104 +59,199 @@
     {
       id: "ig1", type: "image",
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/400px-Cat03.jpg",
-      question: "What animal is this?",
-      answers: ["cat"],
+      question: "Was für ein Tier ist das?",
+      answers: ["katze", "cat"],
     },
     {
       id: "ig2", type: "image",
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cute_dog.jpg/400px-Cute_dog.jpg",
-      question: "What animal is this?",
-      answers: ["dog"],
+      question: "Was für ein Tier ist das?",
+      answers: ["hund", "dog"],
     },
     {
       id: "ig3", type: "image",
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Camponotus_flavomarginatus_ant.jpg/400px-Camponotus_flavomarginatus_ant.jpg",
-      question: "What insect is this?",
-      answers: ["ant"],
+      question: "Was für ein Insekt ist das?",
+      answers: ["ameise", "ant"],
     },
     {
       id: "ig4", type: "image",
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/400px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
-      question: "What famous painting is this?",
+      question: "Was für ein berühmtes Gemälde ist das?",
       answers: ["mona lisa", "monalisa", "la joconde"],
     },
     {
       id: "ig5", type: "image",
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg/400px-Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
-      question: "What mountain is this?",
+      question: "Was für ein Berg ist das?",
       answers: ["everest", "mount everest", "mt everest"],
     },
     {
       id: "ig6", type: "image",
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/280px-PNG_transparency_demonstration_1.png",
-      question: "What objects are shown?",
-      answers: ["dice", "die"],
+      question: "Was für Gegenstände sind das?",
+      answers: ["wurfel", "wurfelspiel", "dice", "die"],
     },
     {
       id: "ig7", type: "image",
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/400px-Good_Food_Display_-_NCI_Visuals_Online.jpg",
-      question: "What category does this display represent?",
-      answers: ["food", "fruit", "healthy food", "vegetables"],
+      question: "Was ist auf diesem Bild zu sehen?",
+      answers: ["essen", "obst", "gemuse", "lebensmittel", "food", "fruit"],
     },
     {
       id: "ig8", type: "image",
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Empire_State_Building_%28aerial_view%29.jpg/400px-Empire_State_Building_%28aerial_view%29.jpg",
-      question: "What famous building is this?",
+      question: "Was für ein berühmtes Gebäude ist das?",
       answers: ["empire state building", "empire state"],
+    },
+    {
+      id: "ig9", type: "image",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/African_Bush_Elephant.jpg/400px-African_Bush_Elephant.jpg",
+      question: "Was für ein Tier ist das?",
+      answers: ["elefant", "elephant"],
+    },
+    {
+      id: "ig10", type: "image",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/400px-Lion_waiting_in_Namibia.jpg",
+      question: "Was für ein Tier ist das?",
+      answers: ["lowe", "lion"],
+    },
+    {
+      id: "ig11", type: "image",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/400px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg",
+      question: "Was für ein berühmtes Bauwerk ist das?",
+      answers: ["eiffelturm", "eiffel turm", "tour eiffel"],
+    },
+    {
+      id: "ig12", type: "image",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/400px-The_Earth_seen_from_Apollo_17.jpg",
+      question: "Was ist auf diesem Bild zu sehen?",
+      answers: ["erde", "earth"],
+    },
+    {
+      id: "ig13", type: "image",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/GuitareClassique5.png/400px-GuitareClassique5.png",
+      question: "Was für ein Instrument ist das?",
+      answers: ["gitarre", "guitar"],
+    },
+    {
+      id: "ig14", type: "image",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/400px-Red_Apple.jpg",
+      question: "Was für eine Frucht ist das?",
+      answers: ["apfel", "apple"],
+    },
+    {
+      id: "ig15", type: "image",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Banana-Fruits.jpg/400px-Banana-Fruits.jpg",
+      question: "Was für eine Frucht ist das?",
+      answers: ["banane", "banana"],
     },
   ];
 
   const fourImagesQuestions = [
     {
       id: "fi1", type: "four_images",
-      images: ["https://picsum.photos/seed/sky/200/200","https://picsum.photos/seed/ocean/200/200","https://picsum.photos/seed/blueberry/200/200","https://picsum.photos/seed/jeans/200/200"],
-      word: "BLUE", hint: "_ _ _ _", clue: "Sky, ocean, berry, denim — they all share this colour",
+      images: ["https://picsum.photos/seed/himmel/200/200","https://picsum.photos/seed/ozean/200/200","https://picsum.photos/seed/blaubeere/200/200","https://picsum.photos/seed/jeans/200/200"],
+      word: "BLAU", hint: "_ _ _ _", clue: "Himmel, Ozean, Beere, Jeans — welche Farbe verbindet sie?",
     },
     {
       id: "fi2", type: "four_images",
-      images: ["https://picsum.photos/seed/campfire/200/200","https://picsum.photos/seed/flame/200/200","https://picsum.photos/seed/torch/200/200","https://picsum.photos/seed/fireplace/200/200"],
-      word: "FIRE", hint: "_ _ _ _", clue: "Heat, light, and burning — what element connects these?",
+      images: ["https://picsum.photos/seed/lagerfeuer/200/200","https://picsum.photos/seed/flamme/200/200","https://picsum.photos/seed/fackel/200/200","https://picsum.photos/seed/kamin/200/200"],
+      word: "FEUER", hint: "_ _ _ _ _", clue: "Lagerfeuer, Flamme, Fackel, Kamin — was verbindet diese Bilder?",
     },
     {
       id: "fi3", type: "four_images",
-      images: ["https://picsum.photos/seed/oak/200/200","https://picsum.photos/seed/pine/200/200","https://picsum.photos/seed/maple/200/200","https://picsum.photos/seed/forest/200/200"],
-      word: "TREE", hint: "_ _ _ _", clue: "Oak, pine, maple, forest — what are they all types of?",
+      images: ["https://picsum.photos/seed/eiche/200/200","https://picsum.photos/seed/kiefer/200/200","https://picsum.photos/seed/ahorn/200/200","https://picsum.photos/seed/wald/200/200"],
+      word: "BAUM", hint: "_ _ _ _", clue: "Eiche, Kiefer, Ahorn, Wald — was verbindet diese Bilder?",
     },
     {
       id: "fi4", type: "four_images",
-      images: ["https://picsum.photos/seed/goldbar/200/200","https://picsum.photos/seed/trophy/200/200","https://picsum.photos/seed/coin/200/200","https://picsum.photos/seed/sunrise/200/200"],
-      word: "GOLD", hint: "_ _ _ _", clue: "Bars, trophies, coins, sunrise — this precious metal connects them",
+      images: ["https://picsum.photos/seed/goldbar/200/200","https://picsum.photos/seed/trophae/200/200","https://picsum.photos/seed/munze/200/200","https://picsum.photos/seed/sonnenaufgang/200/200"],
+      word: "GOLD", hint: "_ _ _ _", clue: "Barren, Trophäe, Münze, Sonnenaufgang — was verbindet diese Bilder?",
     },
     {
       id: "fi5", type: "four_images",
-      images: ["https://picsum.photos/seed/wedding/200/200","https://picsum.photos/seed/ringbox/200/200","https://picsum.photos/seed/saturn/200/200","https://picsum.photos/seed/boxing/200/200"],
-      word: "RING", hint: "_ _ _ _", clue: "Wedding, jewellery, Saturn, boxing — what shape connects these?",
+      images: ["https://picsum.photos/seed/hochzeit/200/200","https://picsum.photos/seed/schmuck/200/200","https://picsum.photos/seed/saturn/200/200","https://picsum.photos/seed/boxen/200/200"],
+      word: "RING", hint: "_ _ _ _", clue: "Hochzeit, Schmuck, Saturn, Boxen — was verbindet diese Bilder?",
     },
     {
       id: "fi6", type: "four_images",
-      images: ["https://picsum.photos/seed/snow/200/200","https://picsum.photos/seed/iceberg/200/200","https://picsum.photos/seed/cloud/200/200","https://picsum.photos/seed/polar/200/200"],
-      word: "WHITE", hint: "_ _ _ _ _", clue: "Snow, iceberg, cloud, polar bear — what colour do they share?",
+      images: ["https://picsum.photos/seed/schnee/200/200","https://picsum.photos/seed/eisberg/200/200","https://picsum.photos/seed/wolke/200/200","https://picsum.photos/seed/polarbear/200/200"],
+      word: "WEISS", hint: "_ _ _ _ _", clue: "Schnee, Eisberg, Wolke, Polarbär — welche Farbe verbindet sie?",
     },
     {
       id: "fi7", type: "four_images",
-      images: ["https://picsum.photos/seed/library/200/200","https://picsum.photos/seed/novel/200/200","https://picsum.photos/seed/reading/200/200","https://picsum.photos/seed/bookshelf/200/200"],
-      word: "BOOK", hint: "_ _ _ _", clue: "Library, novel, reading, shelf — what object links them?",
+      images: ["https://picsum.photos/seed/bibliothek/200/200","https://picsum.photos/seed/roman/200/200","https://picsum.photos/seed/lesen/200/200","https://picsum.photos/seed/regal/200/200"],
+      word: "BUCH", hint: "_ _ _ _", clue: "Bibliothek, Roman, Lesen, Regal — was verbindet diese Bilder?",
+    },
+    {
+      id: "fi8", type: "four_images",
+      images: ["https://picsum.photos/seed/welpe/200/200","https://picsum.photos/seed/bellen/200/200","https://picsum.photos/seed/leine/200/200","https://picsum.photos/seed/hundehutte/200/200"],
+      word: "HUND", hint: "_ _ _ _", clue: "Welpe, Bellen, Leine, Hundehütte — woran denkst du?",
+    },
+    {
+      id: "fi9", type: "four_images",
+      images: ["https://picsum.photos/seed/regen/200/200","https://picsum.photos/seed/fluss/200/200","https://picsum.photos/seed/wasserozen/200/200","https://picsum.photos/seed/eis/200/200"],
+      word: "WASSER", hint: "_ _ _ _ _ _", clue: "Regen, Fluss, Ozean, Eis — was verbindet diese Bilder?",
+    },
+    {
+      id: "fi10", type: "four_images",
+      images: ["https://picsum.photos/seed/nachthimmel/200/200","https://picsum.photos/seed/celebrity/200/200","https://picsum.photos/seed/seestern/200/200","https://picsum.photos/seed/weihnacht/200/200"],
+      word: "STERN", hint: "_ _ _ _ _", clue: "Nachthimmel, Berühmtheit, Seestern, Weihnachten — welches Wort passt?",
+    },
+    {
+      id: "fi11", type: "four_images",
+      images: ["https://picsum.photos/seed/alpen/200/200","https://picsum.photos/seed/gipfel/200/200","https://picsum.photos/seed/wandern/200/200","https://picsum.photos/seed/skifahren/200/200"],
+      word: "BERG", hint: "_ _ _ _", clue: "Alpen, Gipfel, Wandern, Skifahren — was verbindet sie?",
+    },
+    {
+      id: "fi12", type: "four_images",
+      images: ["https://picsum.photos/seed/sonne/200/200","https://picsum.photos/seed/kerze/200/200","https://picsum.photos/seed/leuchtturm/200/200","https://picsum.photos/seed/ampel/200/200"],
+      word: "LICHT", hint: "_ _ _ _ _", clue: "Sonne, Kerze, Leuchtturm, Ampel — was verbindet diese Bilder?",
+    },
+    {
+      id: "fi13", type: "four_images",
+      images: ["https://picsum.photos/seed/apfelrot/200/200","https://picsum.photos/seed/rose/200/200","https://picsum.photos/seed/feuerwehr/200/200","https://picsum.photos/seed/tomaterot/200/200"],
+      word: "ROT", hint: "_ _ _", clue: "Apfel, Rose, Feuerwehr, Tomate — welche Farbe verbindet sie?",
+    },
+    {
+      id: "fi14", type: "four_images",
+      images: ["https://picsum.photos/seed/mond/200/200","https://picsum.photos/seed/sterne/200/200","https://picsum.photos/seed/fledermaus/200/200","https://picsum.photos/seed/schlaf/200/200"],
+      word: "NACHT", hint: "_ _ _ _ _", clue: "Mond, Sterne, Fledermaus, Schlaf — was verbindet diese Bilder?",
     },
   ];
 
   const multipleChoiceQuestions = [
-    { id: "mc1",  type: "multiple_choice", question: "What is the capital of France?",                         answers: ["London","Paris","Berlin","Madrid"],         correct: 1 },
-    { id: "mc2",  type: "multiple_choice", question: "How many sides does a hexagon have?",                    answers: ["5","6","7","8"],                            correct: 1 },
-    { id: "mc3",  type: "multiple_choice", question: "Which planet is known as the Red Planet?",               answers: ["Venus","Jupiter","Mars","Saturn"],          correct: 2 },
-    { id: "mc4",  type: "multiple_choice", question: "What is the chemical symbol for water?",                 answers: ["CO₂","O₂","H₂O","NaCl"],                   correct: 2 },
-    { id: "mc5",  type: "multiple_choice", question: "Who painted the Sistine Chapel ceiling?",                answers: ["Leonardo da Vinci","Raphael","Michelangelo","Donatello"], correct: 2 },
-    { id: "mc6",  type: "multiple_choice", question: "What is the largest ocean on Earth?",                    answers: ["Atlantic","Indian","Arctic","Pacific"],      correct: 3 },
-    { id: "mc7",  type: "multiple_choice", question: "In what year did World War II end?",                     answers: ["1943","1944","1945","1946"],                 correct: 2 },
-    { id: "mc8",  type: "multiple_choice", question: "How many bones are in the adult human body?",            answers: ["196","206","216","226"],                    correct: 1 },
-    { id: "mc9",  type: "multiple_choice", question: "What is the speed of light (approx) in km/s?",          answers: ["150,000","200,000","300,000","400,000"],    correct: 2 },
-    { id: "mc10", type: "multiple_choice", question: "Which element has the atomic number 1?",                 answers: ["Helium","Oxygen","Carbon","Hydrogen"],      correct: 3 },
-    { id: "mc11", type: "multiple_choice", question: "What is the longest river in the world?",                answers: ["Amazon","Yangtze","Nile","Mississippi"],    correct: 2 },
-    { id: "mc12", type: "multiple_choice", question: "Which programming language was created by Guido van Rossum?", answers: ["Java","Ruby","Python","Perl"],         correct: 2 },
+    { id: "mc1",  type: "multiple_choice", question: "Was ist die Hauptstadt von Frankreich?",                         answers: ["London","Paris","Berlin","Madrid"],                       correct: 1 },
+    { id: "mc2",  type: "multiple_choice", question: "Wie viele Seiten hat ein Hexagon?",                              answers: ["5","6","7","8"],                                          correct: 1 },
+    { id: "mc3",  type: "multiple_choice", question: "Welcher Planet ist als der Rote Planet bekannt?",                answers: ["Venus","Jupiter","Mars","Saturn"],                        correct: 2 },
+    { id: "mc4",  type: "multiple_choice", question: "Was ist das chemische Symbol für Wasser?",                       answers: ["CO₂","O₂","H₂O","NaCl"],                                 correct: 2 },
+    { id: "mc5",  type: "multiple_choice", question: "Wer hat die Sixtinische Kapelle bemalt?",                        answers: ["Leonardo da Vinci","Raffael","Michelangelo","Donatello"],  correct: 2 },
+    { id: "mc6",  type: "multiple_choice", question: "Was ist der größte Ozean der Erde?",                             answers: ["Atlantik","Indischer Ozean","Arktischer Ozean","Pazifik"], correct: 3 },
+    { id: "mc7",  type: "multiple_choice", question: "In welchem Jahr endete der Zweite Weltkrieg?",                   answers: ["1943","1944","1945","1946"],                              correct: 2 },
+    { id: "mc8",  type: "multiple_choice", question: "Wie viele Knochen hat der erwachsene menschliche Körper?",       answers: ["196","206","216","226"],                                  correct: 1 },
+    { id: "mc9",  type: "multiple_choice", question: "Was ist die Lichtgeschwindigkeit (ungefähr) in km/s?",           answers: ["150.000","200.000","300.000","400.000"],                  correct: 2 },
+    { id: "mc10", type: "multiple_choice", question: "Welches Element hat die Ordnungszahl 1?",                        answers: ["Helium","Sauerstoff","Kohlenstoff","Wasserstoff"],        correct: 3 },
+    { id: "mc11", type: "multiple_choice", question: "Was ist der längste Fluss der Welt?",                            answers: ["Amazonas","Jangtsekiang","Nil","Mississippi"],            correct: 2 },
+    { id: "mc12", type: "multiple_choice", question: "Welche Programmiersprache wurde von Guido van Rossum entwickelt?", answers: ["Java","Ruby","Python","Perl"],                         correct: 2 },
+    { id: "mc13", type: "multiple_choice", question: "Welches ist das flächenmäßig größte Land der Welt?",             answers: ["USA","China","Russland","Kanada"],                        correct: 2 },
+    { id: "mc14", type: "multiple_choice", question: "Was ist die Hauptstadt von Deutschland?",                        answers: ["Hamburg","München","Frankfurt","Berlin"],                 correct: 3 },
+    { id: "mc15", type: "multiple_choice", question: "Welcher Kontinent ist der größte der Welt?",                     answers: ["Afrika","Amerika","Asien","Europa"],                      correct: 2 },
+    { id: "mc16", type: "multiple_choice", question: "Wie viele Stunden hat ein Tag?",                                 answers: ["20","22","24","26"],                                      correct: 2 },
+    { id: "mc17", type: "multiple_choice", question: "Was ist das härteste natürliche Mineral?",                       answers: ["Gold","Quarz","Diamant","Rubin"],                         correct: 2 },
+    { id: "mc18", type: "multiple_choice", question: "Welche Sprache wird in Brasilien gesprochen?",                   answers: ["Spanisch","Portugiesisch","Englisch","Brasilianisch"],    correct: 1 },
+    { id: "mc19", type: "multiple_choice", question: "Wer schrieb 'Romeo und Julia'?",                                 answers: ["Goethe","Shakespeare","Dante","Cervantes"],               correct: 1 },
+    { id: "mc20", type: "multiple_choice", question: "In welchem Jahr begann der Erste Weltkrieg?",                    answers: ["1910","1912","1914","1916"],                              correct: 2 },
+    { id: "mc21", type: "multiple_choice", question: "Welche Stadt ist die Hauptstadt von Australien?",                answers: ["Sydney","Melbourne","Brisbane","Canberra"],               correct: 3 },
+    { id: "mc22", type: "multiple_choice", question: "Wie viele Planeten hat unser Sonnensystem?",                     answers: ["7","8","9","10"],                                         correct: 1 },
+    { id: "mc23", type: "multiple_choice", question: "Was ist die Hauptstadt von Japan?",                              answers: ["Osaka","Kyoto","Tokio","Hiroshima"],                      correct: 2 },
+    { id: "mc24", type: "multiple_choice", question: "Welches ist der größte Planet in unserem Sonnensystem?",         answers: ["Saturn","Jupiter","Uranus","Neptun"],                     correct: 1 },
+    { id: "mc25", type: "multiple_choice", question: "In welchem Jahr wurde die Berliner Mauer gebaut?",               answers: ["1955","1958","1961","1965"],                              correct: 2 },
+    { id: "mc26", type: "multiple_choice", question: "Was ist die Hauptstadt von Spanien?",                            answers: ["Barcelona","Madrid","Sevilla","Valencia"],                correct: 1 },
+    { id: "mc27", type: "multiple_choice", question: "Wie viele Farben hat ein Regenbogen?",                           answers: ["5","6","7","8"],                                          correct: 2 },
+    { id: "mc28", type: "multiple_choice", question: "Welches Tier ist das schnellste auf dem Land?",                  answers: ["Pferd","Strauß","Gepard","Wildhund"],                     correct: 2 },
+    { id: "mc29", type: "multiple_choice", question: "Was ist die kleinste Primzahl?",                                 answers: ["0","1","2","3"],                                          correct: 2 },
+    { id: "mc30", type: "multiple_choice", question: "Was ist die Hauptstadt von Ägypten?",                            answers: ["Alexandria","Luxor","Kairo","Assuan"],                    correct: 2 },
   ];
 
   const speedModeQuestions = [
@@ -229,24 +324,24 @@
     const questions = [];
 
     US_STATES.forEach(function (state, idx) {
-      // Q type 1: abbreviation -> state name
+      // F-Typ 1: Abkürzung → Bundesstaatsname
       const wrongStates1 = pickRandomExcluding(US_STATES, state.abbr, function (s) { return s.abbr; }, 3);
       const ans1 = shuffle([state.name, wrongStates1[0].name, wrongStates1[1].name, wrongStates1[2].name]);
       questions.push({
         id: "us_abbr_" + idx,
         type: "multiple_choice",
-        question: 'Which US state has the abbreviation "' + state.abbr + '"?',
+        question: 'Welcher US-Bundesstaat hat das Kürzel "' + state.abbr + '"?',
         answers: ans1,
         correct: ans1.indexOf(state.name),
       });
 
-      // Q type 2: capital -> state name
+      // F-Typ 2: Hauptstadt → Bundesstaatsname
       const wrongStates2 = pickRandomExcluding(US_STATES, state.name, function (s) { return s.name; }, 3);
       const ans2 = shuffle([state.name, wrongStates2[0].name, wrongStates2[1].name, wrongStates2[2].name]);
       questions.push({
         id: "us_cap_" + idx,
         type: "multiple_choice",
-        question: "\"" + state.capital + "\" is the capital of which US state?",
+        question: '"' + state.capital + '" ist die Hauptstadt welches US-Bundesstaates?',
         answers: ans2,
         correct: ans2.indexOf(state.name),
       });

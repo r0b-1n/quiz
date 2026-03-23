@@ -56,7 +56,7 @@ function calculateAccuracy() {
 function showLoading(msg) {
   const overlay = $("loading-overlay");
   const text = $("loading-text");
-  if (text) text.textContent = msg || "Loading questions…";
+  if (text) text.textContent = msg || "Fragen werden geladen…";
   if (overlay) overlay.classList.remove("hidden");
 }
 
@@ -73,20 +73,20 @@ function showScreen(name) {
 
 // ── Category Selection (knowledge categories) ────────────────────
 window.selectCategory = async function (categoryKey) {
-  showLoading("Loading questions…");
+  showLoading("Fragen werden geladen…");
   try {
     const data = window.quizData;
     let questions = [];
 
     switch (categoryKey) {
       case "countries": {
-        showLoading("Fetching countries data…");
+        showLoading("Länderdaten werden abgerufen…");
         const countriesData = await data.fetchCountriesData();
         questions = data.buildCapitalsQuestions(countriesData);
         break;
       }
       case "flags": {
-        showLoading("Fetching flag data…");
+        showLoading("Flaggendaten werden abgerufen…");
         const flagCountries = await data.fetchCountriesData();
         questions = data.buildFlagsQuestions(flagCountries);
         break;
@@ -104,14 +104,14 @@ window.selectCategory = async function (categoryKey) {
         questions = data.buildNBAQuestions();
         break;
       default:
-        throw new Error("Unknown category: " + categoryKey);
+        throw new Error("Unbekannte Kategorie: " + categoryKey);
     }
 
     hideLoading();
     window.startQuiz(questions, categoryKey);
   } catch (err) {
     hideLoading();
-    alert("Failed to load questions: " + (err.message || err));
+    alert("Fehler beim Laden der Fragen: " + (err.message || err));
   }
 };
 
@@ -230,22 +230,22 @@ function renderQuestion() {
 function renderImageGuess(q, area) {
   area.innerHTML = `
     <div class="question-image-wrap">
-      <img src="${q.image}" alt="Quiz image" loading="lazy" />
+      <img src="${q.image}" alt="Quiz-Bild" loading="lazy" />
     </div>
     <div class="question-text">${q.question}</div>
     <div class="answer-area">
       <input id="text-input" class="answer-input" type="text"
-        placeholder="Type your answer…" autocomplete="off" />
-      <button class="btn btn-primary" onclick="submitTextAnswer()">Submit</button>
+        placeholder="Antwort eingeben…" autocomplete="off" />
+      <button class="btn btn-primary" onclick="submitTextAnswer()">Antworten</button>
     </div>
     <div class="action-row">
-      <button class="btn btn-outline" id="hint-btn" onclick="useHint()">💡 Hint</button>
-      <span class="hint-cost">Hint costs −5 pts</span>
+      <button class="btn btn-outline" id="hint-btn" onclick="useHint()">💡 Hinweis</button>
+      <span class="hint-cost">Hinweis kostet −5 Pkt.</span>
     </div>
     <div id="word-hint-display" class="word-hint" style="margin-top:16px;"></div>
     <div id="feedback" class="feedback hidden"></div>
     <div class="action-row" id="next-row" style="margin-top:16px; display:none;">
-      <button class="btn btn-primary" onclick="nextQuestion()">Next →</button>
+      <button class="btn btn-primary" onclick="nextQuestion()">Weiter →</button>
     </div>
   `;
   const input = $("text-input");
@@ -257,24 +257,24 @@ function renderImageGuess(q, area) {
 function renderFourImages(q, area) {
   const hintHtml = buildLetterBoxesHtml(q.word, []);
   area.innerHTML = `
-    <div class="question-text">🖼️ What one word connects these four images?</div>
+    <div class="question-text">🖼️ Welches Wort verbindet diese vier Bilder?</div>
     <div class="four-images-grid">
       ${q.images.map((src) => `<img src="${src}" alt="" loading="lazy" />`).join("")}
     </div>
-    <p style="color:var(--text2);font-size:.88rem;margin-bottom:16px;">💬 Clue: ${q.clue}</p>
+    <p style="color:var(--text2);font-size:.88rem;margin-bottom:16px;">💬 Hinweis: ${q.clue}</p>
     <div id="word-hint-display" class="word-hint">${hintHtml}</div>
     <div class="answer-area">
       <input id="text-input" class="answer-input" type="text"
-        placeholder="Type the connecting word…" autocomplete="off" />
-      <button class="btn btn-primary" onclick="submitTextAnswer()">Submit</button>
+        placeholder="Verbindendes Wort eingeben…" autocomplete="off" />
+      <button class="btn btn-primary" onclick="submitTextAnswer()">Antworten</button>
     </div>
     <div class="action-row">
-      <button class="btn btn-outline" id="hint-btn" onclick="useHint()">💡 Reveal letter</button>
-      <span class="hint-cost">Hint costs −5 pts</span>
+      <button class="btn btn-outline" id="hint-btn" onclick="useHint()">💡 Buchstabe aufdecken</button>
+      <span class="hint-cost">Hinweis kostet −5 Pkt.</span>
     </div>
     <div id="feedback" class="feedback hidden"></div>
     <div class="action-row" id="next-row" style="margin-top:16px; display:none;">
-      <button class="btn btn-primary" onclick="nextQuestion()">Next →</button>
+      <button class="btn btn-primary" onclick="nextQuestion()">Weiter →</button>
     </div>
   `;
   const input = $("text-input");
@@ -298,7 +298,7 @@ function renderMultipleChoice(q, area) {
     <div class="choices-grid">${choicesHtml}</div>
     <div id="feedback" class="feedback hidden"></div>
     <div class="action-row" id="next-row" style="margin-top:4px; display:none;">
-      <button class="btn btn-primary" onclick="nextQuestion()">Next →</button>
+      <button class="btn btn-primary" onclick="nextQuestion()">Weiter →</button>
     </div>
   `;
 }
@@ -321,13 +321,13 @@ function renderImageMC(q, area) {
 
   area.innerHTML = `
     <div class="${wrapClass}">
-      <img src="${q.image}" alt="Quiz image" loading="lazy" />
+      <img src="${q.image}" alt="Quiz-Bild" loading="lazy" />
     </div>
     <div class="question-text">${q.question}${tagHtml}</div>
     <div class="choices-grid">${choicesHtml}</div>
     <div id="feedback" class="feedback hidden"></div>
     <div class="action-row" id="next-row" style="margin-top:4px; display:none;">
-      <button class="btn btn-primary" onclick="nextQuestion()">Next →</button>
+      <button class="btn btn-primary" onclick="nextQuestion()">Weiter →</button>
     </div>
   `;
 }
@@ -466,7 +466,7 @@ function handleCorrect(inputEl) {
   if (inputEl) inputEl.classList.add("correct");
   flashCard("correct-flash");
 
-  const label = bonus > 0 ? `✅ Correct! +${pts} (streak bonus +${bonus}!)` : `✅ Correct! +10`;
+  const label = bonus > 0 ? `✅ Richtig! +${pts} (Serienbonus +${bonus}!)` : `✅ Richtig! +10`;
   showFeedback(true, label);
   updateHeaderStats();
   animateStreakFire();
@@ -479,7 +479,7 @@ function handleIncorrect(inputEl, correctAnswer) {
   if (inputEl) inputEl.classList.add("incorrect");
   flashCard("incorrect-flash");
 
-  showFeedback(false, `❌ Incorrect. Answer: ${correctAnswer}`);
+  showFeedback(false, `❌ Falsch. Antwort: ${correctAnswer}`);
   updateHeaderStats();
 }
 
@@ -529,7 +529,7 @@ function updateProgress() {
   const fill = $("progress-fill");
   if (fill) fill.style.width = pct + "%";
   const label = $("progress-label");
-  if (label) label.textContent = `Question ${current} of ${total}`;
+  if (label) label.textContent = `Frage ${current} von ${total}`;
   const pctEl = $("progress-pct");
   if (pctEl) pctEl.textContent = Math.round(pct) + "%";
 }
@@ -579,12 +579,12 @@ function endQuiz() {
 
   const acc = calculateAccuracy();
   const emoji = acc >= 80 ? "🏆" : acc >= 50 ? "🎉" : "💪";
-  const title = acc >= 80 ? "Excellent!" : acc >= 50 ? "Well done!" : "Keep practising!";
+  const title = acc >= 80 ? "Ausgezeichnet!" : acc >= 50 ? "Gut gemacht!" : "Weiter üben!";
 
   $("result-emoji").textContent = emoji;
   $("result-title").textContent = title;
   $("result-subtitle").textContent =
-    `You answered ${state.totalAnswered} question${state.totalAnswered !== 1 ? "s" : ""}`;
+    `Du hast ${state.totalAnswered} Frage${state.totalAnswered !== 1 ? "n" : ""} beantwortet`;
 
   $("res-score").textContent = state.score;
   $("res-accuracy").textContent = acc + "%";
@@ -598,8 +598,8 @@ function endQuiz() {
   const hsBanner = $("highscore-banner");
   if (hsBanner) {
     hsBanner.textContent = isNew
-      ? `🏅 New High Score: ${state.score}!`
-      : `🏅 Best Score: ${hs}`;
+      ? `🏅 Neuer Highscore: ${state.score}!`
+      : `🏅 Bester Score: ${hs}`;
     hsBanner.classList.remove("hidden");
   }
 

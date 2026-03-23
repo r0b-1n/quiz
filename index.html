@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="de" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,104 +13,104 @@
 <body>
 
   <!-- ── Dark Mode Toggle ───────────────────────────────────────── -->
-  <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">☀️</button>
+  <button id="theme-toggle" onclick="toggleTheme()" aria-label="Dunkelmodus umschalten">☀️</button>
 
-  <!-- ── Loading Overlay ───────────────────────────────────────── -->
+  <!-- ── Lade-Overlay ───────────────────────────────────────── -->
   <div id="loading-overlay" class="loading-overlay hidden">
     <div class="spinner"></div>
-    <p id="loading-text">Loading questions…</p>
+    <p id="loading-text">Fragen werden geladen…</p>
   </div>
 
   <!-- ════════════════════════════════════════════════════════════
-       START SCREEN
+       STARTBILDSCHIRM
   ═════════════════════════════════════════════════════════════ -->
   <section id="start-screen" class="screen">
     <div class="start-hero">
       <span class="logo">🎯</span>
       <h1>QuizMaster</h1>
-      <p>Challenge your knowledge across exciting categories and game modes</p>
+      <p>Teste dein Wissen in spannenden Kategorien und Spielmodi</p>
     </div>
 
-    <!-- Knowledge Categories -->
-    <p class="section-title">Knowledge Categories</p>
+    <!-- Wissenskategorien -->
+    <p class="section-title">Wissenskategorien</p>
     <div class="mode-grid">
 
-      <!-- Countries -->
+      <!-- Länder -->
       <div class="mode-card" onclick="selectCategory('countries')" tabindex="0"
            onkeydown="if(event.key==='Enter')selectCategory('countries')">
         <span class="icon">🌍</span>
-        <h3>Countries</h3>
-        <p>Name the capital city of countries from around the world.</p>
-        <span class="mode-badge">Up to 60 Qs</span>
+        <h3>Länder</h3>
+        <p>Nenne die Hauptstadt von Ländern aus aller Welt.</p>
+        <span class="mode-badge">Bis zu 60 Fragen</span>
       </div>
 
-      <!-- Flags -->
+      <!-- Flaggen -->
       <div class="mode-card" onclick="selectCategory('flags')" tabindex="0"
            onkeydown="if(event.key==='Enter')selectCategory('flags')">
         <span class="icon">🚩</span>
-        <h3>Flags</h3>
-        <p>Identify countries by their national flag. Can you get them all?</p>
-        <span class="mode-badge">Up to 100 Qs</span>
+        <h3>Flaggen</h3>
+        <p>Erkenne Länder an ihrer Nationalflagge. Schaffst du alle?</p>
+        <span class="mode-badge">Bis zu 100 Fragen</span>
       </div>
 
-      <!-- Company Logos -->
+      <!-- Firmenlogos -->
       <div class="mode-card" onclick="selectCategory('company_logos')" tabindex="0"
            onkeydown="if(event.key==='Enter')selectCategory('company_logos')">
         <span class="icon">🏢</span>
-        <h3>Company Logos</h3>
-        <p>Recognise the world's most iconic brand logos.</p>
-        <span class="mode-badge">30 Qs</span>
+        <h3>Firmenlogos</h3>
+        <p>Erkenne die bekanntesten Markenlogos der Welt.</p>
+        <span class="mode-badge">30 Fragen</span>
       </div>
 
-      <!-- US States -->
+      <!-- US-Bundesstaaten -->
       <div class="mode-card" onclick="selectCategory('us_states')" tabindex="0"
            onkeydown="if(event.key==='Enter')selectCategory('us_states')">
         <span class="icon">🇺🇸</span>
-        <h3>US States</h3>
-        <p>Match abbreviations and capitals to all 50 US states.</p>
-        <span class="mode-badge">100 Qs</span>
+        <h3>US-Bundesstaaten</h3>
+        <p>Ordne Kürzel und Hauptstädte allen 50 US-Bundesstaaten zu.</p>
+        <span class="mode-badge">100 Fragen</span>
       </div>
 
-      <!-- Football -->
+      <!-- Fußball -->
       <div class="mode-card" onclick="selectCategory('football')" tabindex="0"
            onkeydown="if(event.key==='Enter')selectCategory('football')">
         <span class="icon">⚽</span>
-        <h3>Football</h3>
-        <p>Identify European football clubs by their crests.</p>
-        <span class="mode-badge">22 Clubs</span>
+        <h3>Fußball</h3>
+        <p>Erkenne europäische Fußballvereine an ihrem Vereinswappen.</p>
+        <span class="mode-badge">32 Vereine</span>
       </div>
 
       <!-- NBA -->
       <div class="mode-card" onclick="selectCategory('nba')" tabindex="0"
            onkeydown="if(event.key==='Enter')selectCategory('nba')">
         <span class="icon">🏀</span>
-        <h3>NBA Teams</h3>
-        <p>Name all 30 NBA franchises from their official logos.</p>
+        <h3>NBA-Teams</h3>
+        <p>Nenne alle 30 NBA-Franchises anhand ihrer offiziellen Logos.</p>
         <span class="mode-badge">30 Teams</span>
       </div>
 
     </div>
 
-    <!-- Classic Modes -->
-    <p class="section-title">Classic Modes</p>
+    <!-- Klassische Modi -->
+    <p class="section-title">Klassische Modi</p>
     <div class="mode-grid">
 
-      <!-- Image Guess -->
+      <!-- Bild erraten -->
       <div class="mode-card" onclick="selectMode('image')" tabindex="0"
            onkeydown="if(event.key==='Enter')selectMode('image')">
         <span class="icon">🖼️</span>
-        <h3>Image Guess</h3>
-        <p>Look at a photo and type what you see. Test your visual knowledge!</p>
-        <span class="mode-badge">Type answer</span>
+        <h3>Bild erraten</h3>
+        <p>Schau dir ein Foto an und tippe, was du siehst. Teste dein Bildwissen!</p>
+        <span class="mode-badge">Antwort eingeben</span>
       </div>
 
-      <!-- Four Images -->
+      <!-- 4 Bilder 1 Wort -->
       <div class="mode-card" onclick="selectMode('four_images')" tabindex="0"
            onkeydown="if(event.key==='Enter')selectMode('four_images')">
         <span class="icon">🔠</span>
-        <h3>4 Images 1 Word</h3>
-        <p>Four images share one connecting word. Can you guess it?</p>
-        <span class="mode-badge">Word puzzle</span>
+        <h3>4 Bilder 1 Wort</h3>
+        <p>Vier Bilder teilen ein gemeinsames Wort. Kannst du es erraten?</p>
+        <span class="mode-badge">Worträtsel</span>
       </div>
 
       <!-- Multiple Choice -->
@@ -118,41 +118,41 @@
            onkeydown="if(event.key==='Enter')selectMode('multiple_choice')">
         <span class="icon">🧠</span>
         <h3>Multiple Choice</h3>
-        <p>Classic general-knowledge quiz with four options per question.</p>
-        <span class="mode-badge">Pick one</span>
+        <p>Klassisches Allgemeinwissens-Quiz mit vier Antwortmöglichkeiten.</p>
+        <span class="mode-badge">Eine auswählen</span>
       </div>
 
-      <!-- Speed Mode -->
+      <!-- Speed-Modus -->
       <div class="mode-card" onclick="selectMode('speed')" tabindex="0"
            onkeydown="if(event.key==='Enter')selectMode('speed')">
         <span class="icon">⚡</span>
-        <h3>Speed Mode</h3>
-        <p>60 seconds, mixed questions, auto-advance. How many can you get?</p>
-        <span class="mode-badge">60 s rush</span>
+        <h3>Speed-Modus</h3>
+        <p>60 Sekunden, gemischte Fragen, automatischer Vorschub. Wie viele schaffst du?</p>
+        <span class="mode-badge">60-Sek.-Rush</span>
       </div>
 
     </div>
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       QUIZ SCREEN
+       QUIZ-BILDSCHIRM
   ═════════════════════════════════════════════════════════════ -->
   <section id="quiz-screen" class="screen hidden">
 
-    <!-- Header -->
+    <!-- Kopfzeile -->
     <header class="quiz-header">
-      <button class="btn-back" onclick="goHome()">← Menu</button>
+      <button class="btn-back" onclick="goHome()">← Menü</button>
 
       <div class="header-stats">
-        <!-- Score -->
+        <!-- Punkte -->
         <div class="stat-chip score" id="header-score">⭐ 0</div>
 
-        <!-- Streak -->
+        <!-- Serie -->
         <div class="stat-chip streak" id="header-streak">
           <span id="streak-fire" class="streak-fire">✨</span> 0
         </div>
 
-        <!-- Speed timer (hidden unless speed mode) -->
+        <!-- Speed-Timer (nur im Speed-Modus sichtbar) -->
         <div id="timer-wrap" class="hidden">
           <div class="timer-ring-wrap">
             <svg viewBox="0 0 48 48">
@@ -166,10 +166,10 @@
       </div>
     </header>
 
-    <!-- Progress -->
+    <!-- Fortschritt -->
     <div class="progress-wrap">
       <div class="progress-label">
-        <span id="progress-label">Question 1 of 1</span>
+        <span id="progress-label">Frage 1 von 1</span>
         <span id="progress-pct">0%</span>
       </div>
       <div class="progress-bar">
@@ -177,7 +177,7 @@
       </div>
     </div>
 
-    <!-- Dynamic question area -->
+    <!-- Dynamischer Fragebereich -->
     <div class="question-card">
       <div id="question-area"></div>
     </div>
@@ -185,47 +185,47 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       RESULT SCREEN
+       ERGEBNISBILDSCHIRM
   ═════════════════════════════════════════════════════════════ -->
   <section id="result-screen" class="screen hidden">
     <div class="result-card">
       <span id="result-emoji" class="result-emoji">🏆</span>
-      <h2 id="result-title" class="result-title">Excellent!</h2>
-      <p id="result-subtitle" class="result-subtitle">You answered 10 questions</p>
+      <h2 id="result-title" class="result-title">Ausgezeichnet!</h2>
+      <p id="result-subtitle" class="result-subtitle">Du hast 10 Fragen beantwortet</p>
 
       <div id="highscore-banner" class="highscore-banner hidden"></div>
 
       <div class="result-stats">
         <div class="result-stat">
           <span id="res-score" class="stat-value">0</span>
-          <span class="stat-label">Total Score</span>
+          <span class="stat-label">Gesamtpunkte</span>
         </div>
         <div class="result-stat">
           <span id="res-accuracy" class="stat-value">0%</span>
-          <span class="stat-label">Accuracy</span>
+          <span class="stat-label">Genauigkeit</span>
         </div>
         <div class="result-stat">
           <span id="res-correct" class="stat-value">0/0</span>
-          <span class="stat-label">Correct</span>
+          <span class="stat-label">Richtig</span>
         </div>
         <div class="result-stat">
           <span id="res-streak" class="stat-value">0</span>
-          <span class="stat-label">Best Streak 🔥</span>
+          <span class="stat-label">Beste Serie 🔥</span>
         </div>
         <div class="result-stat" style="grid-column: 1/-1;">
           <span id="res-hints" class="stat-value">0</span>
-          <span class="stat-label">Hints Used 💡</span>
+          <span class="stat-label">Hinweise verwendet 💡</span>
         </div>
       </div>
 
       <div class="result-actions">
-        <button class="btn btn-primary" onclick="restartQuiz()">🔄 Play Again</button>
-        <button class="btn btn-outline" onclick="goHome()">🏠 Main Menu</button>
+        <button class="btn btn-primary" onclick="restartQuiz()">🔄 Nochmal spielen</button>
+        <button class="btn btn-outline" onclick="goHome()">🏠 Hauptmenü</button>
       </div>
     </div>
   </section>
 
-  <!-- ── Scripts ─────────────────────────────────────────────── -->
+  <!-- ── Skripte ─────────────────────────────────────────────── -->
   <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
