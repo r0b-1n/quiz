@@ -15,9 +15,8 @@ const state = {
   speedTimer: null,
   speedTimeLeft: 60,
   isAnswered: false,
-  // for image/four-images hint: revealed letters
   revealedLetters: [],
-  hintConverted: false, // whether hint converted q to multiple choice
+  hintConverted: false,
 };
 
 // ── DOM references ───────────────────────────────────────────────
@@ -39,13 +38,31 @@ function shuffle(arr) {
 }
 
 function validateAnswer(input, answers) {
-  const norm = input.trim().toLowerCase();
-  return answers.some((a) => a.trim().toLowerCase() === norm);
+  const normInput = window.normalize(input);
+  return answers.some(function (a) {
+    const normA = window.normalize(a);
+    if (normInput === normA) return true;
+    const maxDist = normA.length >= 10 ? 2 : normA.length >= 5 ? 1 : 0;
+    return maxDist > 0 && window.levenshtein(normInput, normA) <= maxDist;
+  });
 }
 
 function calculateAccuracy() {
   if (state.totalAnswered === 0) return 0;
   return Math.round((state.correctCount / state.totalAnswered) * 100);
+}
+
+// ── Loading Overlay ──────────────────────────────────────────────
+function showLoading(msg) {
+  const overlay = $("loading-overlay");
+  const text = $("loading-text");
+  if (text) text.textContent = msg || "Loading questions…";
+  if (overlay) overlay.classList.remove("hidden");
+}
+
+function hideLoading() {
+  const overlay = $("loading-overlay");
+  if (overlay) overlay.classList.add("hidden");
 }
 
 // ── Screen Navigation ────────────────────────────────────────────
@@ -54,34 +71,78 @@ function showScreen(name) {
   screens[name].classList.remove("hidden");
 }
 
-// ── Mode Selection ───────────────────────────────────────────────
+// ── Category Selection (knowledge categories) ────────────────────
+window.selectCategory = async function (categoryKey) {
+  showLoading("Loading questions…");
+  try {
+    const data = window.quizData;
+    let questions = [];
+
+    switch (categoryKey) {
+      case "countries":
+        showLoading("Fetching countries data…");
+        var countries = await data.fetchCountriesData();
+        questions = data.buildCapitalsQuestions(countries);
+        break;
+      case "flags":
+        showLoading("Fetching flag data…");
+        var countriesF = await data.fetchCountriesData();
+        questions = data.buildFlagsQuestions(countriesF);
+        break;
+      case "us_states":
+        questions = data.buildUsStatesQuestions();
+        break;
+      case "company_logos":
+        questions = data.buildCompanyLogosQuestions();
+        break;
+      case "football":
+        questions = data.buildFootballQuestions();
+        break;
+      case "nba":
+        questions = data.buildNBAQuestions();
+        break;
+      default:
+        throw new Error("Unknown category: " + categoryKey);
+    }
+
+    hideLoading();
+    window.startQuiz(questions, categoryKey);
+  } catch (err) {
+    hideLoading();
+    alert("Failed to load questions: " + (err.message || err));
+  }
+};
+
+// ── Classic Mode Selection ────────────────────────────────────────
 window.selectMode = function (mode) {
+  const data = window.quizData;
+  let questions = [];
+  switch (mode) {
+    case "image":         questions = shuffle(data.imageGuessQuestions);      break;
+    case "four_images":   questions = shuffle(data.fourImagesQuestions);      break;
+    case "multiple_choice": questions = shuffle(data.multipleChoiceQuestions); break;
+    case "speed":
+      questions = shuffle(data.speedModeQuestions);
+      break;
+    default:
+      questions = shuffle(data.multipleChoiceQuestions);
+  }
+  window.startQuiz(questions, mode);
+};
+
+// ── Start Quiz ───────────────────────────────────────────────────
+window.startQuiz = function (questions, mode) {
   state.currentMode = mode;
+  state.questions = questions;
+  state.currentIndex = 0;
   state.score = 0;
   state.streak = 0;
   state.maxStreak = 0;
   state.correctCount = 0;
   state.totalAnswered = 0;
   state.hintsUsed = 0;
-  state.currentIndex = 0;
   state.isAnswered = false;
-
-  const data = window.quizData;
-  switch (mode) {
-    case "image":
-      state.questions = shuffle(data.imageGuessQuestions);
-      break;
-    case "four_images":
-      state.questions = shuffle(data.fourImagesQuestions);
-      break;
-    case "multiple_choice":
-      state.questions = shuffle(data.multipleChoiceQuestions);
-      break;
-    case "speed":
-      state.questions = shuffle(data.speedModeQuestions);
-      state.speedTimeLeft = 60;
-      break;
-  }
+  state.speedTimeLeft = 60;
 
   showScreen("quiz");
   renderQuestion();
@@ -118,7 +179,7 @@ function stopSpeedTimer() {
 function updateTimerRing(left, total) {
   const fill = $("timer-ring-fill");
   const num  = $("timer-number");
-  const circ = 2 * Math.PI * 22; /* matches SVG circle r=22 */
+  const circ = 2 * Math.PI * 22;
   const pct  = left / total;
   fill.style.strokeDashoffset = circ - circ * pct;
   num.textContent = left;
@@ -145,7 +206,6 @@ function renderQuestion() {
   updateProgress();
   updateHeaderStats();
 
-  // Render per type
   switch (q.type) {
     case "image":
       renderImageGuess(q, area);
@@ -156,8 +216,10 @@ function renderQuestion() {
     case "multiple_choice":
       renderMultipleChoice(q, area);
       break;
+    case "image_mc":
+      renderImageMC(q, area);
+      break;
     default:
-      // fallback
       renderMultipleChoice(q, area);
   }
 }
@@ -184,18 +246,14 @@ function renderImageGuess(q, area) {
       <button class="btn btn-primary" onclick="nextQuestion()">Next →</button>
     </div>
   `;
-
   const input = $("text-input");
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") submitTextAnswer();
-  });
+  input.addEventListener("keydown", (e) => { if (e.key === "Enter") submitTextAnswer(); });
   input.focus();
 }
 
 // ── Four Images ───────────────────────────────────────────────────
 function renderFourImages(q, area) {
   const hintHtml = buildLetterBoxesHtml(q.word, []);
-
   area.innerHTML = `
     <div class="question-text">🖼️ What one word connects these four images?</div>
     <div class="four-images-grid">
@@ -217,11 +275,8 @@ function renderFourImages(q, area) {
       <button class="btn btn-primary" onclick="nextQuestion()">Next →</button>
     </div>
   `;
-
   const input = $("text-input");
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") submitTextAnswer();
-  });
+  input.addEventListener("keydown", (e) => { if (e.key === "Enter") submitTextAnswer(); });
   input.focus();
 }
 
@@ -229,17 +284,43 @@ function renderFourImages(q, area) {
 function renderMultipleChoice(q, area) {
   const labels = ["A", "B", "C", "D"];
   const choicesHtml = q.answers
-    .map(
-      (ans, i) => `
+    .map((ans, i) => `
       <button class="choice-btn" id="choice-${i}" onclick="submitChoice(${i})">
         <span class="choice-label">${labels[i]}</span>
         <span>${ans}</span>
-      </button>`
-    )
+      </button>`)
     .join("");
 
   area.innerHTML = `
     <div class="question-text">${q.question}</div>
+    <div class="choices-grid">${choicesHtml}</div>
+    <div id="feedback" class="feedback hidden"></div>
+    <div class="action-row" id="next-row" style="margin-top:4px; display:none;">
+      <button class="btn btn-primary" onclick="nextQuestion()">Next →</button>
+    </div>
+  `;
+}
+
+// ── Image MC ──────────────────────────────────────────────────────
+function renderImageMC(q, area) {
+  const labels = ["A", "B", "C", "D"];
+  const choicesHtml = q.answers
+    .map((ans, i) => `
+      <button class="choice-btn" id="choice-${i}" onclick="submitChoice(${i})">
+        <span class="choice-label">${labels[i]}</span>
+        <span>${ans}</span>
+      </button>`)
+    .join("");
+
+  const isLogo = q.imageStyle === "logo";
+  const wrapClass = isLogo ? "logo-image-wrap" : "question-image-wrap";
+  const tagHtml = q.tag ? `<span class="q-tag">${q.tag}</span>` : "";
+
+  area.innerHTML = `
+    <div class="${wrapClass}">
+      <img src="${q.image}" alt="Quiz image" loading="lazy" />
+    </div>
+    <div class="question-text">${q.question}${tagHtml}</div>
     <div class="choices-grid">${choicesHtml}</div>
     <div id="feedback" class="feedback hidden"></div>
     <div class="action-row" id="next-row" style="margin-top:4px; display:none;">
@@ -271,8 +352,7 @@ window.useHint = function () {
   if (state.isAnswered) return;
   const q = state.questions[state.currentIndex];
 
-  if (q.type === "multiple_choice") {
-    // Eliminate one wrong answer
+  if (q.type === "multiple_choice" || q.type === "image_mc") {
     const wrongBtns = [];
     for (let i = 0; i < q.answers.length; i++) {
       if (i !== q.correct) {
@@ -299,7 +379,6 @@ window.useHint = function () {
 
   if (unrevealed.length === 0) return;
 
-  // Reveal a random unrevealed letter
   const pick = unrevealed[Math.floor(Math.random() * unrevealed.length)];
   state.revealedLetters.push(pick.i);
   applyScoreDelta(-5, "hint");
@@ -316,10 +395,7 @@ window.submitTextAnswer = function () {
   const input = $("text-input");
   if (!input) return;
   const val = input.value.trim();
-  if (!val) {
-    input.focus();
-    return;
-  }
+  if (!val) { input.focus(); return; }
 
   const q = state.questions[state.currentIndex];
   const answers = q.type === "four_images" ? [q.word] : q.answers;
@@ -329,7 +405,6 @@ window.submitTextAnswer = function () {
 
   if (correct) {
     handleCorrect(input);
-    // Reveal all letters in word hint
     if (q.type === "four_images" || q.type === "image") {
       const word = (q.type === "four_images" ? q.word : q.answers[0]).toUpperCase();
       const all = word.split("").map((_, i) => i).filter((i) => word[i] !== " ");
@@ -353,7 +428,6 @@ window.submitChoice = function (index) {
   state.isAnswered = true;
   state.totalAnswered++;
 
-  // Disable all buttons
   for (let i = 0; i < q.answers.length; i++) {
     const btn = $(`choice-${i}`);
     if (btn) btn.disabled = true;
@@ -378,7 +452,7 @@ window.submitChoice = function (index) {
 
 // ── Correct / Incorrect Handlers ─────────────────────────────────
 function handleCorrect(inputEl) {
-  const bonus = state.streak >= 5 ? 10 : state.streak >= 3 ? 5 : 0;
+  const bonus = state.streak * 2;
   const pts = 10 + bonus;
   state.score += pts;
   state.streak++;
@@ -388,7 +462,7 @@ function handleCorrect(inputEl) {
   if (inputEl) inputEl.classList.add("correct");
   flashCard("correct-flash");
 
-  const label = bonus > 0 ? `✅ Correct! +${pts} (streak bonus!)` : `✅ Correct! +10`;
+  const label = bonus > 0 ? `✅ Correct! +${pts} (streak bonus +${bonus}!)` : `✅ Correct! +10`;
   showFeedback(true, label);
   updateHeaderStats();
   animateStreakFire();
@@ -423,7 +497,7 @@ function flashCard(cls) {
   const card = document.querySelector(".question-card");
   if (!card) return;
   card.classList.remove("correct-flash", "incorrect-flash");
-  void card.offsetWidth; // reflow
+  void card.offsetWidth;
   card.classList.add(cls);
   setTimeout(() => card.classList.remove(cls), 700);
 }
@@ -452,6 +526,8 @@ function updateProgress() {
   if (fill) fill.style.width = pct + "%";
   const label = $("progress-label");
   if (label) label.textContent = `Question ${current} of ${total}`;
+  const pctEl = $("progress-pct");
+  if (pctEl) pctEl.textContent = Math.round(pct) + "%";
 }
 
 function updateHeaderStats() {
@@ -474,6 +550,24 @@ window.nextQuestion = function () {
   }
 };
 
+// ── High Score helpers ────────────────────────────────────────────
+function getHighScore(category) {
+  try {
+    return parseInt(localStorage.getItem("quiz_hs_" + category) || "0", 10);
+  } catch (e) { return 0; }
+}
+
+function saveHighScore(category, score) {
+  try {
+    const prev = getHighScore(category);
+    if (score > prev) {
+      localStorage.setItem("quiz_hs_" + category, String(score));
+      return true;
+    }
+  } catch (e) { /* ignore */ }
+  return false;
+}
+
 // ── End Quiz ──────────────────────────────────────────────────────
 function endQuiz() {
   stopSpeedTimer();
@@ -493,6 +587,17 @@ function endQuiz() {
   $("res-streak").textContent = state.maxStreak;
   $("res-hints").textContent = state.hintsUsed;
   $("res-correct").textContent = `${state.correctCount}/${state.totalAnswered}`;
+
+  // High score
+  const isNew = saveHighScore(state.currentMode, state.score);
+  const hs = getHighScore(state.currentMode);
+  const hsBanner = $("highscore-banner");
+  if (hsBanner) {
+    hsBanner.textContent = isNew
+      ? `🏅 New High Score: ${state.score}!`
+      : `🏅 Best Score: ${hs}`;
+    hsBanner.classList.remove("hidden");
+  }
 
   if (acc >= 60) spawnConfetti();
 }
@@ -537,12 +642,17 @@ window.goHome = function () {
 
 // ── Restart (same mode) ───────────────────────────────────────────
 window.restartQuiz = function () {
-  selectMode(state.currentMode);
+  const classicModes = ["image", "four_images", "multiple_choice", "speed"];
+  if (classicModes.includes(state.currentMode)) {
+    window.selectMode(state.currentMode);
+  } else {
+    window.selectCategory(state.currentMode);
+  }
 };
 
 // ── Init ──────────────────────────────────────────────────────────
 (function init() {
-  const saved = localStorage.getItem("quiz-theme") || "light";
+  const saved = localStorage.getItem("quiz-theme") || "dark";
   document.documentElement.setAttribute("data-theme", saved);
   $("theme-toggle").textContent = saved === "dark" ? "☀️" : "🌙";
   showScreen("start");
