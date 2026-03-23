@@ -118,7 +118,7 @@ function stopSpeedTimer() {
 function updateTimerRing(left, total) {
   const fill = $("timer-ring-fill");
   const num  = $("timer-number");
-  const circ = 138.2;
+  const circ = 2 * Math.PI * 22; /* matches SVG circle r=22 */
   const pct  = left / total;
   fill.style.strokeDashoffset = circ - circ * pct;
   num.textContent = left;
@@ -284,7 +284,7 @@ window.useHint = function () {
     const pick = wrongBtns[Math.floor(Math.random() * wrongBtns.length)];
     pick.btn.disabled = true;
     pick.btn.style.opacity = "0.3";
-    applyScoreDelta(-5, "hint");
+    applyScoreDelta(-5);
     state.hintsUsed++;
     return;
   }
@@ -446,7 +446,7 @@ function animateStreakFire() {
 function updateProgress() {
   const total = state.questions.length;
   const current = state.currentIndex + 1;
-  const pct = ((state.currentIndex) / total) * 100;
+  const pct = (state.currentIndex / total) * 100;
 
   const fill = $("progress-fill");
   if (fill) fill.style.width = pct + "%";
