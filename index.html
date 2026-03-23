@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,7 +13,13 @@
 <body>
 
   <!-- ── Dark Mode Toggle ───────────────────────────────────────── -->
-  <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+  <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">☀️</button>
+
+  <!-- ── Loading Overlay ───────────────────────────────────────── -->
+  <div id="loading-overlay" class="loading-overlay hidden">
+    <div class="spinner"></div>
+    <p id="loading-text">Loading questions…</p>
+  </div>
 
   <!-- ════════════════════════════════════════════════════════════
        START SCREEN
@@ -22,9 +28,71 @@
     <div class="start-hero">
       <span class="logo">🎯</span>
       <h1>QuizMaster</h1>
-      <p>Challenge your knowledge across four exciting game modes</p>
+      <p>Challenge your knowledge across exciting categories and game modes</p>
     </div>
 
+    <!-- Knowledge Categories -->
+    <p class="section-title">Knowledge Categories</p>
+    <div class="mode-grid">
+
+      <!-- Countries -->
+      <div class="mode-card" onclick="selectCategory('countries')" tabindex="0"
+           onkeydown="if(event.key==='Enter')selectCategory('countries')">
+        <span class="icon">🌍</span>
+        <h3>Countries</h3>
+        <p>Name the capital city of countries from around the world.</p>
+        <span class="mode-badge">Up to 60 Qs</span>
+      </div>
+
+      <!-- Flags -->
+      <div class="mode-card" onclick="selectCategory('flags')" tabindex="0"
+           onkeydown="if(event.key==='Enter')selectCategory('flags')">
+        <span class="icon">🚩</span>
+        <h3>Flags</h3>
+        <p>Identify countries by their national flag. Can you get them all?</p>
+        <span class="mode-badge">Up to 100 Qs</span>
+      </div>
+
+      <!-- Company Logos -->
+      <div class="mode-card" onclick="selectCategory('company_logos')" tabindex="0"
+           onkeydown="if(event.key==='Enter')selectCategory('company_logos')">
+        <span class="icon">🏢</span>
+        <h3>Company Logos</h3>
+        <p>Recognise the world's most iconic brand logos.</p>
+        <span class="mode-badge">30 Qs</span>
+      </div>
+
+      <!-- US States -->
+      <div class="mode-card" onclick="selectCategory('us_states')" tabindex="0"
+           onkeydown="if(event.key==='Enter')selectCategory('us_states')">
+        <span class="icon">🇺🇸</span>
+        <h3>US States</h3>
+        <p>Match abbreviations and capitals to all 50 US states.</p>
+        <span class="mode-badge">100 Qs</span>
+      </div>
+
+      <!-- Football -->
+      <div class="mode-card" onclick="selectCategory('football')" tabindex="0"
+           onkeydown="if(event.key==='Enter')selectCategory('football')">
+        <span class="icon">⚽</span>
+        <h3>Football</h3>
+        <p>Identify European football clubs by their crests.</p>
+        <span class="mode-badge">22 Clubs</span>
+      </div>
+
+      <!-- NBA -->
+      <div class="mode-card" onclick="selectCategory('nba')" tabindex="0"
+           onkeydown="if(event.key==='Enter')selectCategory('nba')">
+        <span class="icon">🏀</span>
+        <h3>NBA Teams</h3>
+        <p>Name all 30 NBA franchises from their official logos.</p>
+        <span class="mode-badge">30 Teams</span>
+      </div>
+
+    </div>
+
+    <!-- Classic Modes -->
+    <p class="section-title">Classic Modes</p>
     <div class="mode-grid">
 
       <!-- Image Guess -->
@@ -124,6 +192,8 @@
       <span id="result-emoji" class="result-emoji">🏆</span>
       <h2 id="result-title" class="result-title">Excellent!</h2>
       <p id="result-subtitle" class="result-subtitle">You answered 10 questions</p>
+
+      <div id="highscore-banner" class="highscore-banner hidden"></div>
 
       <div class="result-stats">
         <div class="result-stat">
