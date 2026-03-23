@@ -331,6 +331,25 @@ body {
   display: block;
 }
 
+/* ── Flag Image Wrap ────────────────────────────────────────────── */
+.flag-image-wrap {
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto 24px;
+  background: var(--bg2);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  padding: 12px;
+  box-shadow: 0 4px 20px var(--shadow2);
+  overflow: hidden;
+}
+.flag-image-wrap img {
+  max-height: 200px;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
 /* ── Logo Image Wrap (company logos, football, NBA) ─────────────── */
 .logo-image-wrap {
   width: 180px; height: 180px;

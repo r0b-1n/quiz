@@ -315,7 +315,8 @@ function renderImageMC(q, area) {
     .join("");
 
   const isLogo = q.imageStyle === "logo";
-  const wrapClass = isLogo ? "logo-image-wrap" : "question-image-wrap";
+  const isFlag = q.imageStyle === "flag";
+  const wrapClass = isLogo ? "logo-image-wrap" : isFlag ? "flag-image-wrap" : "question-image-wrap";
   const tagHtml = q.tag ? `<span class="q-tag">${q.tag}</span>` : "";
 
   area.innerHTML = `
