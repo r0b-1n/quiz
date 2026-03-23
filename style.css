@@ -527,7 +527,7 @@ body {
   stroke: var(--primary);
   stroke-width: 4;
   stroke-linecap: round;
-  stroke-dasharray: 138.23;
+  stroke-dasharray: 138.23; /* 2π × 22 ≈ 138.23, matches r=22 in the SVG */
   transition: stroke-dashoffset 1s linear, stroke .5s;
 }
 .timer-ring-fill.warning { stroke: var(--warning); }

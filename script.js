@@ -455,6 +455,7 @@ window.submitChoice = function (index) {
 
 // ── Correct / Incorrect Handlers ─────────────────────────────────
 function handleCorrect(inputEl) {
+  // Scoring formula: +10 base + (current streak × 2) bonus
   const bonus = state.streak * 2;
   const pts = 10 + bonus;
   state.score += pts;

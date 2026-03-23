@@ -12,6 +12,19 @@
     return a;
   }
 
+  // ── Pick n random items excluding one by key ──────────────────────
+  // More efficient than filter-then-shuffle for repeated calls.
+  function pickRandomExcluding(arr, excludeKey, keyFn, n) {
+    const pool = arr.filter(function (item) { return keyFn(item) !== excludeKey; });
+    const result = [];
+    for (let i = 0; i < n && pool.length > 0; i++) {
+      const idx = Math.floor(Math.random() * pool.length);
+      result.push(pool[idx]);
+      pool.splice(idx, 1);
+    }
+    return result;
+  }
+
   // ── Normalize utility (exposed globally) ─────────────────────────
   window.normalize = function (str) {
     return String(str)
@@ -217,7 +230,7 @@
 
     US_STATES.forEach(function (state, idx) {
       // Q type 1: abbreviation -> state name
-      const wrongStates1 = shuffle(US_STATES.filter(function (s) { return s.abbr !== state.abbr; })).slice(0, 3);
+      const wrongStates1 = pickRandomExcluding(US_STATES, state.abbr, function (s) { return s.abbr; }, 3);
       const ans1 = shuffle([state.name, wrongStates1[0].name, wrongStates1[1].name, wrongStates1[2].name]);
       questions.push({
         id: "us_abbr_" + idx,
@@ -228,7 +241,7 @@
       });
 
       // Q type 2: capital -> state name
-      const wrongStates2 = shuffle(US_STATES.filter(function (s) { return s.name !== state.name; })).slice(0, 3);
+      const wrongStates2 = pickRandomExcluding(US_STATES, state.name, function (s) { return s.name; }, 3);
       const ans2 = shuffle([state.name, wrongStates2[0].name, wrongStates2[1].name, wrongStates2[2].name]);
       questions.push({
         id: "us_cap_" + idx,
@@ -281,7 +294,7 @@
 
   function buildCompanyLogosQuestions() {
     return shuffle(COMPANIES).map(function (company, idx) {
-      const wrong = shuffle(COMPANIES.filter(function (c) { return c.name !== company.name; })).slice(0, 3);
+      const wrong = pickRandomExcluding(COMPANIES, company.name, function (c) { return c.name; }, 3);
       const answers = shuffle([company.name, wrong[0].name, wrong[1].name, wrong[2].name]);
       return {
         id: "logo_" + idx,
@@ -331,7 +344,7 @@
 
   function buildFootballQuestions() {
     return shuffle(FOOTBALL_CLUBS).map(function (club, idx) {
-      const wrong = shuffle(FOOTBALL_CLUBS.filter(function (c) { return c.name !== club.name; })).slice(0, 3);
+      const wrong = pickRandomExcluding(FOOTBALL_CLUBS, club.name, function (c) { return c.name; }, 3);
       const answers = shuffle([club.name, wrong[0].name, wrong[1].name, wrong[2].name]);
       return {
         id: "football_" + idx,
@@ -385,7 +398,7 @@
 
   function buildNBAQuestions() {
     return shuffle(NBA_TEAMS).map(function (team, idx) {
-      const wrong = shuffle(NBA_TEAMS.filter(function (t) { return t.abbr !== team.abbr; })).slice(0, 3);
+      const wrong = pickRandomExcluding(NBA_TEAMS, team.abbr, function (t) { return t.abbr; }, 3);
       const answers = shuffle([team.name, wrong[0].name, wrong[1].name, wrong[2].name]);
       return {
         id: "nba_" + idx,
@@ -415,7 +428,7 @@
     } catch (e) { /* ignore */ }
 
     var response = await fetch(COUNTRIES_API);
-    if (!response.ok) throw new Error("Failed to fetch countries: " + response.status);
+    if (!response.ok) throw new Error("Failed to fetch countries: " + response.status + " " + response.statusText);
     var raw = await response.json();
 
     var countries = raw.filter(function (c) {
@@ -442,7 +455,7 @@
   function buildCapitalsQuestions(countries) {
     var shuffled = shuffle(countries).slice(0, 60);
     return shuffled.map(function (country, idx) {
-      var wrong = shuffle(countries.filter(function (c) { return c.name !== country.name; })).slice(0, 3);
+      var wrong = pickRandomExcluding(countries, country.name, function (c) { return c.name; }, 3);
       var answers = shuffle([country.capital, wrong[0].capital, wrong[1].capital, wrong[2].capital]);
       return {
         id: "cap_" + idx,
@@ -457,7 +470,7 @@
   function buildFlagsQuestions(countries) {
     var shuffled = shuffle(countries).slice(0, 100);
     return shuffled.map(function (country, idx) {
-      var wrong = shuffle(countries.filter(function (c) { return c.name !== country.name; })).slice(0, 3);
+      var wrong = pickRandomExcluding(countries, country.name, function (c) { return c.name; }, 3);
       var answers = shuffle([country.name, wrong[0].name, wrong[1].name, wrong[2].name]);
       return {
         id: "flag_" + idx,
